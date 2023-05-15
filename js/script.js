@@ -1,9 +1,10 @@
 $(document).ready(function() {
 
-    function loadTable() {
+    function loadTable(page) {
         $.ajax({
             url: "fetch-data.php",
             type: "POST",
+            data : {page_no : page},
             success: function(data) {
                 //console.log(data)
                 $("#table-data").html(data)
@@ -11,6 +12,20 @@ $(document).ready(function() {
         });
     }
     loadTable();
+
+
+    // pagination code
+    $(document).on("click","#pagination a",function(e){
+        e.preventDefault();
+        // fetch id of anchor tag
+        var page_id = $(this).attr("id");
+        loadTable(page_id);
+    })
+
+
+
+
+
 
     // insert data into table with alert
     $("#submit").on("click", function(e) {
